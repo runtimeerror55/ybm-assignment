@@ -2,6 +2,7 @@ import TwoArrowsInOppositeDirectionIcon from "../assets/icons/twoArrowsInOpposit
 import { useState } from "react";
 const Post = ({ item }) => {
       const [showExpandIcon, setShowExpandIcon] = useState(true);
+      const [noOfPostsToShow, setNoOfPostsToShow] = useState(0);
       return (
             <div>
                   <div className="flex gap-2 items-center">
@@ -10,6 +11,9 @@ const Post = ({ item }) => {
                                     className="text-blue-500 w-3 h-3"
                                     onClick={() => {
                                           setShowExpandIcon(false);
+                                          if (noOfPostsToShow === 0) {
+                                                setNoOfPostsToShow(5);
+                                          }
                                     }}
                               ></TwoArrowsInOppositeDirectionIcon>
                         ) : null}
@@ -23,7 +27,7 @@ const Post = ({ item }) => {
                         }`}
                   >
                         <div
-                              className="w-[0.12rem] bg-gray-300 hover:bg-blue-500 cursor-pointer"
+                              className="min-w-[0.12rem] bg-gray-300 hover:bg-blue-500 cursor-pointer"
                               onClick={() => {
                                     setShowExpandIcon(true);
                               }}
@@ -31,10 +35,41 @@ const Post = ({ item }) => {
                         <div className="flex flex-col gap-3">
                               <div>{item.text}</div>
                               {item.replies?.map((item, index) => {
-                                    return (
-                                          <Post key={index} item={item}></Post>
-                                    );
+                                    if (index < noOfPostsToShow) {
+                                          return (
+                                                <Post
+                                                      key={index}
+                                                      item={item}
+                                                ></Post>
+                                          );
+                                    } else {
+                                          return (
+                                                <div
+                                                      key={index}
+                                                      className="hidden"
+                                                ></div>
+                                          );
+                                    }
                               })}
+
+                              {item.replies?.length > noOfPostsToShow ? (
+                                    <div
+                                          className="underline"
+                                          onClick={() => {
+                                                setNoOfPostsToShow(
+                                                      (previous) => {
+                                                            return Math.min(
+                                                                  previous + 5,
+                                                                  item.replies
+                                                                        .length
+                                                            );
+                                                      }
+                                                );
+                                          }}
+                                    >
+                                          view more replies
+                                    </div>
+                              ) : null}
                         </div>
                   </div>
             </div>
