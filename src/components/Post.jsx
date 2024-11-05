@@ -3,21 +3,33 @@ import { useState } from "react";
 const Post = ({ item }) => {
       const [showExpandIcon, setShowExpandIcon] = useState(true);
       const [noOfPostsToShow, setNoOfPostsToShow] = useState(0);
+
+      const handleExpandIconClick = () => {
+            setShowExpandIcon(false);
+            if (noOfPostsToShow === 0) {
+                  setNoOfPostsToShow(5);
+            }
+      };
+
+      const handleCollapsableScopeClick = () => {
+            setShowExpandIcon(true);
+      };
+
+      const handleViewMoreRepliesClick = () => {
+            setNoOfPostsToShow((previous) => {
+                  return Math.min(previous + 5, item.replies.length);
+            });
+      };
       return (
             <div>
                   <div className="flex gap-2 items-center">
                         {showExpandIcon ? (
                               <TwoArrowsInOppositeDirectionIcon
-                                    className="text-blue-500 w-3 h-3"
-                                    onClick={() => {
-                                          setShowExpandIcon(false);
-                                          if (noOfPostsToShow === 0) {
-                                                setNoOfPostsToShow(5);
-                                          }
-                                    }}
-                              ></TwoArrowsInOppositeDirectionIcon>
+                                    className="text-blue-500 w-3 h-3 cursor-pointer"
+                                    onClick={handleExpandIconClick}
+                              />
                         ) : null}
-                        <img src={item.author.avatar} className="h-10"></img>
+                        <img src={item.author.avatar} className="h-10" />
                         <div>{item.author.name}</div>
                   </div>
 
@@ -28,19 +40,14 @@ const Post = ({ item }) => {
                   >
                         <div
                               className="min-w-[0.12rem] bg-gray-300 hover:bg-blue-500 cursor-pointer"
-                              onClick={() => {
-                                    setShowExpandIcon(true);
-                              }}
+                              onClick={handleCollapsableScopeClick}
                         ></div>
                         <div className="flex flex-col gap-3">
                               <div>{item.text}</div>
                               {item.replies?.map((item, index) => {
                                     if (index < noOfPostsToShow) {
                                           return (
-                                                <Post
-                                                      key={index}
-                                                      item={item}
-                                                ></Post>
+                                                <Post key={index} item={item} />
                                           );
                                     } else {
                                           return (
@@ -53,22 +60,12 @@ const Post = ({ item }) => {
                               })}
 
                               {item.replies?.length > noOfPostsToShow ? (
-                                    <div
-                                          className="underline"
-                                          onClick={() => {
-                                                setNoOfPostsToShow(
-                                                      (previous) => {
-                                                            return Math.min(
-                                                                  previous + 5,
-                                                                  item.replies
-                                                                        .length
-                                                            );
-                                                      }
-                                                );
-                                          }}
+                                    <button
+                                          className="underline w-max"
+                                          onClick={handleViewMoreRepliesClick}
                                     >
                                           view more replies
-                                    </div>
+                                    </button>
                               ) : null}
                         </div>
                   </div>
