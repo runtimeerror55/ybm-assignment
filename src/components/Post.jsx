@@ -38,12 +38,14 @@ const Post = ({ item }) => {
                               !showExpandIcon ? "flex" : "hidden"
                         }`}
                   >
-                        <div
+                        <button
                               className="min-w-[0.15rem] max-w-[0.15rem] bg-gray-300 hover:bg-blue-500 cursor-pointer"
                               onClick={handleCollapsableScopeClick}
-                        ></div>
+                        ></button>
                         <div className="flex flex-col gap-3">
-                              <div>{item.text}</div>
+                              <div>
+                                    <p>{item.text}</p>
+                              </div>
                               {item.replies?.map((item, index) => {
                                     if (index < noOfPostsToShow) {
                                           return (
