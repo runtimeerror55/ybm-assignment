@@ -39,7 +39,7 @@ const Post = ({ item }) => {
                         }`}
                   >
                         <div
-                              className="min-w-[0.12rem] bg-gray-300 hover:bg-blue-500 cursor-pointer"
+                              className="min-w-[0.15rem] max-w-[0.15rem] bg-gray-300 hover:bg-blue-500 cursor-pointer"
                               onClick={handleCollapsableScopeClick}
                         ></div>
                         <div className="flex flex-col gap-3">
