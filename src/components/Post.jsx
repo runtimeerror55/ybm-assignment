@@ -1,8 +1,11 @@
 import TwoArrowsInOppositeDirectionIcon from "../assets/icons/TwoArrowsInOppositeDirectionIcon";
 import { useState } from "react";
+import EditComment from "./EditComment";
 const Post = ({ item }) => {
       const [showExpandIcon, setShowExpandIcon] = useState(true);
       const [noOfPostsToShow, setNoOfPostsToShow] = useState(0);
+      const [comment, setComment] = useState(item.text);
+      const [isCommentEditable, setIsCommentEditable] = useState(false);
 
       const handleExpandIconClick = () => {
             setShowExpandIcon(false);
@@ -20,8 +23,23 @@ const Post = ({ item }) => {
                   return Math.min(previous + 5, item.replies.length);
             });
       };
+
+      const onEditCommentSave = (value) => {
+            setComment(value);
+      };
+
+      const onEditCommentClose = () => {
+            setIsCommentEditable(false);
+      };
       return (
             <div>
+                  {isCommentEditable ? (
+                        <EditComment
+                              comment={comment}
+                              onSave={onEditCommentSave}
+                              onClose={onEditCommentClose}
+                        ></EditComment>
+                  ) : null}
                   <div className="flex gap-2 items-center">
                         {showExpandIcon ? (
                               <TwoArrowsInOppositeDirectionIcon
@@ -44,8 +62,21 @@ const Post = ({ item }) => {
                         ></button>
                         <div className="flex flex-col gap-3">
                               <div>
-                                    <p>{item.text}</p>
+                                    <p>
+                                          {comment}{" "}
+                                          <button
+                                                className="bg-black text-white px-1 rounded-md h-max text-xs ml-1"
+                                                onClick={() => {
+                                                      setIsCommentEditable(
+                                                            true
+                                                      );
+                                                }}
+                                          >
+                                                edit
+                                          </button>
+                                    </p>
                               </div>
+
                               {item.replies?.map((item, index) => {
                                     if (index < noOfPostsToShow) {
                                           return (
