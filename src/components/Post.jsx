@@ -1,4 +1,4 @@
-import TwoArrowsInOppositeDirectionIcon from "../assets/icons/twoArrowsInOppositeDirectionIcon";
+import TwoArrowsInOppositeDirectionIcon from "../assets/icons/TwoArrowsInOppositeDirectionIcon";
 import { useState } from "react";
 const Post = ({ item }) => {
       const [showExpandIcon, setShowExpandIcon] = useState(true);
