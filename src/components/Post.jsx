@@ -1,11 +1,13 @@
 import TwoArrowsInOppositeDirectionIcon from "../assets/icons/TwoArrowsInOppositeDirectionIcon";
 import { useState } from "react";
 import EditComment from "./EditComment";
+import { ColorRing } from "react-loader-spinner";
 const Post = ({ item }) => {
       const [showExpandIcon, setShowExpandIcon] = useState(true);
       const [noOfPostsToShow, setNoOfPostsToShow] = useState(0);
       const [comment, setComment] = useState(item.text);
       const [isCommentEditable, setIsCommentEditable] = useState(false);
+      const [isAvatarImageLoading, setIsAvatarImageLoading] = useState(true);
 
       const handleExpandIconClick = () => {
             setShowExpandIcon(false);
@@ -47,7 +49,34 @@ const Post = ({ item }) => {
                                     onClick={handleExpandIconClick}
                               />
                         ) : null}
-                        <img src={item.author.avatar} className="h-10" />
+                        <img
+                              alt="avatar"
+                              src={item.author.avatar}
+                              className={`${
+                                    isAvatarImageLoading ? "h-0" : "h-10"
+                              }`}
+                              onLoad={() => {
+                                    setIsAvatarImageLoading(false);
+                              }}
+                              onError={() => {
+                                    setIsAvatarImageLoading(false);
+                              }}
+                        />
+                        {isAvatarImageLoading ? (
+                              <ColorRing
+                                    visible={true}
+                                    height="40"
+                                    width="40"
+                                    ariaLabel="color-ring-loading"
+                                    colors={[
+                                          "#e15b64",
+                                          "#f47e60",
+                                          "#f8b26a",
+                                          "#abbd81",
+                                          "#849b87",
+                                    ]}
+                              />
+                        ) : null}
                         <div>{item.author.name}</div>
                   </div>
 
