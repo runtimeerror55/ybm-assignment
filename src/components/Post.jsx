@@ -33,6 +33,14 @@ const Post = ({ item }) => {
       const onEditCommentClose = () => {
             setIsCommentEditable(false);
       };
+
+      const avatarImageLoadingSuccess = () => {
+            setIsAvatarImageLoading(false);
+      };
+
+      const avatarImageLoadingError = () => {
+            setIsAvatarImageLoading(false);
+      };
       return (
             <div>
                   {isCommentEditable ? (
@@ -55,12 +63,8 @@ const Post = ({ item }) => {
                               className={`${
                                     isAvatarImageLoading ? "h-0" : "h-10"
                               }`}
-                              onLoad={() => {
-                                    setIsAvatarImageLoading(false);
-                              }}
-                              onError={() => {
-                                    setIsAvatarImageLoading(false);
-                              }}
+                              onLoad={avatarImageLoadingSuccess}
+                              onError={avatarImageLoadingError}
                         />
                         {isAvatarImageLoading ? (
                               <ColorRing
