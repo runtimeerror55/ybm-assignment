@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-
+import { notify } from "../utilities/notify";
 const EditComment = ({ comment = "", onSave, onClose }) => {
       const commentRef = useRef(null);
 
@@ -7,6 +7,7 @@ const EditComment = ({ comment = "", onSave, onClose }) => {
             const value = commentRef.current.value;
             onSave(value);
             onClose();
+            notify("comment edited successfully", "success");
       };
 
       useEffect(() => {
