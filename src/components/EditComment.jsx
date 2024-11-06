@@ -14,7 +14,7 @@ const EditComment = ({ comment = "", onSave, onClose }) => {
       });
 
       return (
-            <div className="fixed flex justify-center items-center left-0 right-0 top-0 bottom-0 bg-[rgba(0,0,0,0.5)]">
+            <section className="fixed flex justify-center items-center left-0 right-0 top-0 bottom-0 bg-[rgba(0,0,0,0.5)]">
                   <div className="flex gap-2 flex-col rounded-md p-3 bg-white w-full max-w-[40rem] m-2">
                         <textarea
                               ref={commentRef}
@@ -36,7 +36,7 @@ const EditComment = ({ comment = "", onSave, onClose }) => {
                               </button>
                         </div>
                   </div>
-            </div>
+            </section>
       );
 };
 
