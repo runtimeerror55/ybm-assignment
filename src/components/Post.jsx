@@ -41,6 +41,20 @@ const Post = ({ item }) => {
       const avatarImageLoadingError = () => {
             setIsAvatarImageLoading(false);
       };
+
+      const getRepliesJsx = () => {
+            const replies = [];
+            const postRepliesLength = item.replies?.length;
+            for (let i = 0; i < postRepliesLength; i++) {
+                  let replyItem = item.replies[i];
+                  if (i < noOfPostsToShow) {
+                        replies.push(<Post key={i} item={replyItem} />);
+                  } else {
+                        break;
+                  }
+            }
+            return replies;
+      };
       return (
             <div>
                   {isCommentEditable ? (
@@ -110,20 +124,7 @@ const Post = ({ item }) => {
                                     </p>
                               </div>
 
-                              {item.replies?.map((item, index) => {
-                                    if (index < noOfPostsToShow) {
-                                          return (
-                                                <Post key={index} item={item} />
-                                          );
-                                    } else {
-                                          return (
-                                                <div
-                                                      key={index}
-                                                      className="hidden"
-                                                ></div>
-                                          );
-                                    }
-                              })}
+                              {getRepliesJsx()}
 
                               {item.replies?.length > noOfPostsToShow ? (
                                     <button
