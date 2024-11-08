@@ -3,7 +3,7 @@ import { useState } from "react";
 import EditComment from "./EditComment";
 import { ColorRing } from "react-loader-spinner";
 const Post = ({ item }) => {
-      const [showExpandIcon, setShowExpandIcon] = useState(true);
+      const [showExpandIcon, setShowExpandIcon] = useState(false);
       const [noOfPostsToShow, setNoOfPostsToShow] = useState(0);
       const [comment, setComment] = useState(item.text);
       const [isCommentEditable, setIsCommentEditable] = useState(false);
@@ -11,9 +11,9 @@ const Post = ({ item }) => {
 
       const handleExpandIconClick = () => {
             setShowExpandIcon(false);
-            if (noOfPostsToShow === 0) {
-                  setNoOfPostsToShow(5);
-            }
+            // if (noOfPostsToShow === 0) {
+            //       setNoOfPostsToShow(5);
+            // }
       };
 
       const handleCollapsableScopeClick = () => {
